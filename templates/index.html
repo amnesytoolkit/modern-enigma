@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Enigma</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/custom.css')}}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet"> 
+    </head>
+    <body>
+      <div class="grid place-items-center h-screen">
+
+        <div class="px-8 rounded-lg border-2 border-solid border-gray-800 items-center">
+          <div id="main-content" class="flex items-center">
+            <div id="svg-data" class=""></div>
+            <div id="custom-title" class=" custom-padding custom-title text-center"><span class="initial-text" id="initial-text">EN</span><button id="insert-text">CRYPT</button></div>
+            <div class="flex flex-col">
+              <textarea id="data-to-encrypt" class="resize-none py-3 px-5 border-2 border-gray-900 rounded-md" placeholder="Write text here..."></textarea>
+              <input id="key-encrypt" class="resize-none py-2 px-5 border-2 border-gray-900 rounded-md key-encrypt" placeholder="Enter key here...">
+            </div>  
+          </div>
+          <div id="error-message" class="py-2 hidden-textarea error-message"></div>
+        </div>
+        
+      </div>
+      <script>
+        /*
+                               
+            ___ _ __ (_) __ _ _ __ ___   __ _ 
+           / _ \ '_ \| |/ _` | '_ ` _ \ / _` |
+          |  __/ | | | | (_| | | | | | | (_| |
+           \___|_| |_|_|\__, |_| |_| |_|\__,_|
+                        |___/                 
+          To view up API docs, please visit /api
+            -by amnesy & coatedSeven 
+          
+          CSS by tailwind && js animation by random dude on SO.
+  
+        */
+        </script>
+      <script src="/static/assets/jquery.js"></script>
+      <script src="/static/assets/encrypt_decrypt_animation.js"></script>
+      <script src="/static/assets/encrypt_decrypt_websocket.js"></script>
+      <script>    
+        var encypt = 1;   
+        
+        function change_crypt_mode(){   
+             
+          encypt = !encypt;
+          $("#svg-data").html(svgData[+ encypt]);
+          if (encypt){
+            $("#initial-text").text('EN');
+          } else{
+            $("#initial-text").text('DE');
+          }
+          checkValues();   
+        }
+        function crypt(){
+          $("#error-message").addClass("hidden-textarea");
+          var data = $("#data-to-encrypt").val();
+          var key = $("#key-encrypt").val();
+          if (key.length < 12){
+            $("#error-message").removeClass("hidden-textarea");
+            $("#error-message").text("Insufficient password lenght. Key must be at least 12 characters long");
+            return;
+          }
+          send_data(data, key, encypt);
+        }
+
+        function checkValues(){
+          /* show insert-text button and add default class */
+          if ($("#data-to-encrypt").val() && $("#key-encrypt").val().length > 11){
+            $("#insert-text").prop({disabled: false});
+            $("#insert-text").removeClass("insert-text-default");
+            $("#insert-text").addClass("insert-text-button"); 
+          } else{
+            $("#insert-text").prop({disabled: true});
+            $("#insert-text").removeClass("insert-text-button");
+            $("#insert-text").addClass("insert-text-default");
+          }
+        }
+        var svgData = ['<img src="/static/icons/lock_open.svg" class="w-20 py-2"></img>', 
+                        '<img src="/static/icons/lock.svg" class="w-20 py-2"></img>'];
+        $("#svg-data").html(svgData[encypt]);
+        $("#svg-data").on("click", change_crypt_mode);
+        $("#initial-text").on("click", change_crypt_mode);
+        $("#insert-text").addClass("insert-text-default");
+        $("#insert-text").prop({disabled: true});
+        $("#insert-text").on("click", crypt);
+        $("#data-to-encrypt").on('change keyup paste input', checkValues); 
+        $("#key-encrypt").on('change keyup paste input', checkValues); 
+      </script>
+      
+    </body>
+
+</html>

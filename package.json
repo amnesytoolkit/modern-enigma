@@ -1,0 +1,16 @@
+{
+  "name": "enigma",
+  "version": "1.0.0",
+  "description": "A modern version of enigma that goes brrrrrrrrrrr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "amnesy, CoatedSeven",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19"
+  }
+}

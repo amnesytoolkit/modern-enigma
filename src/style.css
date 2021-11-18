@@ -1,0 +1,14 @@
+/*
+    in order to generate this css you need to use this command
+    npx tailwindcss-cli@latest build ./src/style.css -o ./static/css/main.css
+
+    This would generate a lot of utility css classes for us to use in our server templates.
+    docs used:
+        https://www.section.io/engineering-education/integrate-tailwindcss-into-flask/
+        https://tailwindcss.com/docs/installation
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

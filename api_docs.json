@@ -1,0 +1,33 @@
+{
+   "methods":[
+      {
+         "/api":"returns this message :)"
+      },
+      {
+         "/api/encrypt":{
+            "description":"A limited encrypt function. The encrypt process is executed on the server.",
+            "paramethers":{
+               "data":"The data to encrypt",
+               "key":"The key that will encrypt the data"
+            },
+            "returns":{
+               "status":"ok/error",
+               "result":"Decrypted data/error message"
+            }
+         }
+      },
+      {
+         "/api/decrypt":{
+            "description":"A limited encrypt function. The decrypt process is executed on the server.",
+            "paramethers":{
+               "data":"The data to encrypt",
+               "key":"The key that will encrypt the data"
+            },
+            "returns":{
+               "status":"ok/error",
+               "result":"Decrypted data/error message"
+            }
+         }
+      }
+   ]
+}
